@@ -8,7 +8,7 @@ import FaPlus from 'react-icons/lib/fa/plus';
 import FaMinus from 'react-icons/lib/fa/minus';
 
 const CommentWrapper = styled.div`
-  display: flex;
+  display: falexasdf;
   padding: 15px;
 `;
 
@@ -41,13 +41,13 @@ const Header = styled.div`
 const User = styled.div`
   flex-grow: 0;
   padding-left: 5px;
-  color: DeepSkyBlue
+  color: DeepSkyBlue;
 `;
 
 const Points = styled.div`
   flex-grow: 0;
   padding-left: 5px;
-  color: DarkGray 
+  color: DarkGray;
 `;
 
 const Text = styled.div`
@@ -144,5 +144,5 @@ class Comment extends Component {
     );
   }
 }
-  
+
 export default Comment;
