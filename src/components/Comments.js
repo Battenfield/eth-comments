@@ -6,12 +6,11 @@ import moment from 'moment';
 
 
 const CommentsContainer = styled.div`
-${({ subClass }) => subClass && `
-  margin-left: 50px;
-  border-left: .5px solid grey;
-  position: relative;
-`} 
-
+  ${({ subClass }) => subClass && `
+    margin-left: 65px;
+    border-left: .5px solid grey;
+    position: relative;
+  `} 
 `;
 
 class Comments extends Component {

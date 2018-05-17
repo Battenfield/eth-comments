@@ -6,14 +6,14 @@ import FaArrowCircleODown from 'react-icons/lib/fa/arrow-circle-o-down';
 
 const CommentWrapper = styled.div`
   display: flex;
-  margin: 15px;
+  padding: 15px;
 `;
 
 const VoteButtons = styled.div`
 `;
 
 const CommentContent = styled.div`
-  position:relative;
+  position: relative;
   text-align: left;
 `;
 
