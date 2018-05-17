@@ -1,4 +1,57 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+// import FaBeer from 'react-icons/lib/fa/beer';
+import FaArrowCircleOUp from 'react-icons/lib/fa/arrow-circle-o-up';
+import FaArrowCircleODown from 'react-icons/lib/fa/arrow-circle-o-down';
+
+const CommentWrapper = styled.div`
+  display: flex;
+  margin: 15px;
+`;
+
+const VoteButtons = styled.div`
+`;
+
+const CommentContent = styled.div`
+  position:relative;
+  text-align: left;
+`;
+
+
+const UpVote = styled.div`
+
+`;
+
+const DownVote = styled.div`
+
+`;
+
+const Header = styled.div`
+  display: flex;
+  padding-left: 5px;
+  margin: 5px;
+`;
+
+const User = styled.div`
+  flex-grow: 0;
+  padding-left: 5px;
+  color: DeepSkyBlue
+
+`;
+
+const Points = styled.div`
+  flex-grow: 0;
+  padding-left: 5px;
+`;
+
+const Text = styled.div`
+  padding-left: 15px;
+`;
+
+const Time = styled.div`
+flex-grow: 0;
+padding-left: 10px;
+`;
 
 class Comment extends Component {
 
@@ -12,34 +65,38 @@ class Comment extends Component {
   renderButtons() {
     const { id, onUpvote, onDownvote } = this.props;
     return (
-      <div>
-        <button onClick={() => onUpvote(id)}>up</button>
-        <button onClick={() => onDownvote(id)}>down</button>
-      </div>
+      <VoteButtons>
+        <UpVote>
+          <FaArrowCircleOUp size={25} onClick={() => onUpvote(id)}/>
+        </UpVote>
+        <DownVote>
+          <FaArrowCircleODown size={25} onClick={() => onDownvote(id)}/>
+        </DownVote>
+      </VoteButtons>
     );
   }
 
   renderContent() {
     //TODO: setup id/user name mapping to data source maybe in the level above and pass that down
-    const { points, createdAt, text, user } = this.props;
+    const { points, createdAt, text, username } = this.props;
     return (
-      <div>
-        <div style={{ display: "inline" }}>
-          <div>username: {user}</div>
-          <div>points: {points}</div>
-          <div>time: {createdAt}</div>
-        </div>
-          <div>{text}</div>
-      </div>
+      <CommentContent>
+        <Header>
+          <User>{username}</User>
+          <Points>{points} points</Points>
+          <Time>{createdAt}</Time>
+        </Header>
+          <Text>{text}</Text>
+      </CommentContent>
     );
   }
 
   render() {
     return (
-      <div className="comment" style={{ margin: "15px" }}>
+      <CommentWrapper>
         { this.renderButtons() }
         { this.renderContent() }
-      </div>
+      </CommentWrapper>
     );
   }
 }
