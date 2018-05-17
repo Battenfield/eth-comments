@@ -64,7 +64,7 @@ class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedId : {}
+      vote : 0
     }
 
   }
@@ -77,57 +77,60 @@ class Comment extends Component {
   }
 
   upvote(id) {
-    const { onUpvote, onDownvote } = this.props;
-    const updatedSlectedState = { ...this.state.selectedId }
-    if(!updatedSlectedState[id]) {
-      updatedSlectedState[id] = 1;
-      this.setState({ selectedId: updatedSlectedState }, onUpvote(id));
+    if(this.state.vote === 0 || 'undefined') {
+      this.setState({ vote: 1 }, () => {
+        this.props.onUpvote(id)
+      });
+    } else {
+      return;
     }
   }
 
   downvote(id) {
-    const { onUpvote, onDownvote } = this.props;
-    const updatedSlectedState = { ...this.state.selectedId };
-    if(updatedSlectedState[id] === 0 || 'undefined') {
-      updatedSlectedState[id] = -1;
-      this.setState({ selectedId: updatedSlectedState }, onDownvote(id));
-    } else if(updatedSlectedState[id] === 1){
-      updatedSlectedState[id] = 0;
-      this.setState({ selectedId: updatedSlectedState }, onDownvote(id));
-    } 
-  }
-
-  clearUpvote(id) {
-    const updatedSlectedState = { ...this.state.selectedId };
-    updatedSlectedState[id] = 0;
-    this.setState({ selectedId: updatedSlectedState }, this.props.onDownvote(id));
-  }
-
-  clearDownvote(id) {
-    const updatedSlectedState = { ...this.state.selectedId };
-    if(updatedSlectedState[id] === -1) {
-      updatedSlectedState[id] = 0;
-      this.setState({ selectedId: updatedSlectedState }, this.props.onUpvote(id));
+    if(this.state.vote === 0 || 'undefined') {
+      this.setState({ vote: -1 }, () => {
+        this.props.onDownvote(id);
+      })
+    } else {
+      return;
     }
   }
 
+  clearUpvote(id) {
+    this.setState({ vote: 0 }, this.props.onDownvote(id));
+  }
+
+  clearDownvote(id) {
+    this.setState({ vote: 0 }, this.props.onUpvote(id));
+  }
+
   renderButtons() {
-    const id = this.props.id;
     return (
       <VoteButtons>
         <UpVote>
-          {this.state.selectedId[id] > 0 ? 
-            <FaAngleDoubleUp size={25} onClick={() => this.clearUpvote(id)}/> :
-            <FaAngleUp size={25} onClick={() => this.upvote(id)}/>
-          }
+          { this.state.vote >= 0 && this.renderUpButtons()}
         </UpVote>
         <DownVote>
-          {this.state.selectedId[id] < 0 ?
-            <FaAngleDoubleDown size={25} onClick={() => this.clearDownvote(id)}/> :
-            <FaAngleDown size={25} onClick={() => this.downvote(id)}/>
-          }
+          {console.log(this.state.vote)}
+          { this.state.vote <= 0 && this.renderDownButtons() }
         </DownVote>
       </VoteButtons>
+    );
+  }
+
+  renderUpButtons() {
+    return (
+      this.state.vote > 0 ? 
+      <FaAngleDoubleUp size={25} onClick={() => this.clearUpvote(this.props.id)}/> :
+      <FaAngleUp size={25} onClick={() => this.upvote(this.props.id)}/>
+    );
+  }
+
+  renderDownButtons() {
+    return (
+      this.state.vote < 0 ?
+        <FaAngleDoubleDown size={25} onClick={() => this.clearDownvote(this.props.id)}/> :
+        <FaAngleDown size={25} onClick={() => this.downvote(this.props.id)}/>
     );
   }
 
@@ -146,6 +149,7 @@ class Comment extends Component {
   }
 
   render() {
+    console.log('rerender', this.props.id)
     return (
       <CommentWrapper>
         { this.renderButtons() }
