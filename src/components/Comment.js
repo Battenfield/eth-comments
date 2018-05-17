@@ -36,12 +36,12 @@ const User = styled.div`
   flex-grow: 0;
   padding-left: 5px;
   color: DeepSkyBlue
-
 `;
 
 const Points = styled.div`
   flex-grow: 0;
   padding-left: 5px;
+  color: DarkGray 
 `;
 
 const Text = styled.div`
@@ -49,8 +49,9 @@ const Text = styled.div`
 `;
 
 const Time = styled.div`
-flex-grow: 0;
-padding-left: 10px;
+  flex-grow: 0;
+  padding-left: 10px;
+  color: DarkGray;
 `;
 
 class Comment extends Component {
@@ -78,13 +79,13 @@ class Comment extends Component {
 
   renderContent() {
     //TODO: setup id/user name mapping to data source maybe in the level above and pass that down
-    const { points, createdAt, text, username } = this.props;
+    const { points, timeSince, text, username } = this.props;
     return (
       <CommentContent>
         <Header>
           <User>{username}</User>
           <Points>{points} points</Points>
-          <Time>{createdAt}</Time>
+          <Time>{timeSince}</Time>
         </Header>
           <Text>{text}</Text>
       </CommentContent>
