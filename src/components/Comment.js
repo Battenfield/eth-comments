@@ -54,6 +54,13 @@ const Time = styled.div`
 `;
 
 class Comment extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedId : {}
+    }
+
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.points !== nextProps.points) {
@@ -62,15 +69,39 @@ class Comment extends Component {
     return false;
   }
 
+  upvote(id) {
+    const { onUpvote, onDownvote } = this.props;
+    const updatedSlectedState = { ...this.state.selectedId }
+    if(!updatedSlectedState[id]) {
+      updatedSlectedState[id] = 1;
+      this.setState({ selectedId: updatedSlectedState }, onUpvote(id));
+    } else {
+      updatedSlectedState[id] = 0;
+      this.setState({ selectedId: updatedSlectedState }, onDownvote(id));
+    }
+  }
+
+  downvote(id) {
+    const { onUpvote, onDownvote } = this.props;
+    const updatedSlectedState = {...this.state.selectedId };
+    if(updatedSlectedState[id] === 0) {
+      updatedSlectedState[id] = -1;
+      this.setState({ selectedId: updatedSlectedState }, onDownvote(id));
+    } else {
+      updatedSlectedState[id] = 0;
+      this.setState({ selectedId: updatedSlectedState }, onUpvote(id));
+    }
+  }
+
   renderButtons() {
-    const { id, onUpvote, onDownvote } = this.props;
+    const id = this.props.id;
     return (
       <VoteButtons>
         <UpVote>
-          <FaArrowCircleOUp size={25} onClick={() => onUpvote(id)}/>
+          <FaArrowCircleOUp size={25} onClick={() => this.upvote(id)}/>
         </UpVote>
         <DownVote>
-          <FaArrowCircleODown size={25} onClick={() => onDownvote(id)}/>
+          <FaArrowCircleODown size={25} onClick={() => this.downvote(id)}/>
         </DownVote>
       </VoteButtons>
     );
