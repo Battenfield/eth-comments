@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import FaArrowCircleOUp from 'react-icons/lib/fa/arrow-circle-o-up';
-import FaArrowCircleODown from 'react-icons/lib/fa/arrow-circle-o-down';
+// import FaArrowCircleOUp from 'react-icons/lib/fa/arrow-circle-o-up';
+// import FaArrowCircleODown from 'react-icons/lib/fa/arrow-circle-o-down';
+
+import FaAngleUp from 'react-icons/lib/fa/angle-up';
+import FaAngleDoubleUp from 'react-icons/lib/fa/angle-double-up';
+import FaAngleDown from 'react-icons/lib/fa/angle-down';
+import FaAngleDoubleDown from 'react-icons/lib/fa/angle-double-down';
+
+
 
 const CommentWrapper = styled.div`
   display: flex;
@@ -75,21 +82,32 @@ class Comment extends Component {
     if(!updatedSlectedState[id]) {
       updatedSlectedState[id] = 1;
       this.setState({ selectedId: updatedSlectedState }, onUpvote(id));
-    } else {
-      updatedSlectedState[id] = 0;
-      this.setState({ selectedId: updatedSlectedState }, onDownvote(id));
     }
   }
 
   downvote(id) {
     const { onUpvote, onDownvote } = this.props;
-    const updatedSlectedState = {...this.state.selectedId };
-    if(updatedSlectedState[id] === 0) {
+    const updatedSlectedState = { ...this.state.selectedId };
+    if(updatedSlectedState[id] === 0 || 'undefined') {
       updatedSlectedState[id] = -1;
       this.setState({ selectedId: updatedSlectedState }, onDownvote(id));
-    } else {
+    } else if(updatedSlectedState[id] === 1){
       updatedSlectedState[id] = 0;
-      this.setState({ selectedId: updatedSlectedState }, onUpvote(id));
+      this.setState({ selectedId: updatedSlectedState }, onDownvote(id));
+    } 
+  }
+
+  clearUpvote(id) {
+    const updatedSlectedState = { ...this.state.selectedId };
+    updatedSlectedState[id] = 0;
+    this.setState({ selectedId: updatedSlectedState }, this.props.onDownvote(id));
+  }
+
+  clearDownvote(id) {
+    const updatedSlectedState = { ...this.state.selectedId };
+    if(updatedSlectedState[id] === -1) {
+      updatedSlectedState[id] = 0;
+      this.setState({ selectedId: updatedSlectedState }, this.props.onUpvote(id));
     }
   }
 
@@ -98,10 +116,16 @@ class Comment extends Component {
     return (
       <VoteButtons>
         <UpVote>
-          <FaArrowCircleOUp size={25} onClick={() => this.upvote(id)}/>
+          {this.state.selectedId[id] > 0 ? 
+            <FaAngleDoubleUp size={25} onClick={() => this.clearUpvote(id)}/> :
+            <FaAngleUp size={25} onClick={() => this.upvote(id)}/>
+          }
         </UpVote>
         <DownVote>
-          <FaArrowCircleODown size={25} onClick={() => this.downvote(id)}/>
+          {this.state.selectedId[id] < 0 ?
+            <FaAngleDoubleDown size={25} onClick={() => this.clearDownvote(id)}/> :
+            <FaAngleDown size={25} onClick={() => this.downvote(id)}/>
+          }
         </DownVote>
       </VoteButtons>
     );
