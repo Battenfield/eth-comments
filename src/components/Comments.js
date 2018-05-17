@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Comment from './Comment';
 
+
 class Comments extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   renderComments(root, subClass = false) {
-    // const { id, points, createdAt, text, user, onUpvote, onDownvote } = root;
     if(root.comments) {
       return (
-        <div>
+        <div key={root.id}>
           <Comment 
             subClass={subClass} 
-            key={this.props.id} 
             {...root} 
             onUpvote={this.props.onUpvote} 
             onDownvote={this.props.onDownvote}/>
@@ -31,5 +28,12 @@ class Comments extends Component {
     );
   }
 }
+
+Comments.propTypes = {
+  DATA: PropTypes.array,
+  USERS: PropTypes.array,
+  onUpvote: PropTypes.func,
+  onDownvote: PropTypes.func,
+};
   
-  export default Comments;
+export default Comments;
