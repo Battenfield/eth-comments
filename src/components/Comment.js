@@ -8,7 +8,7 @@ import FaPlus from 'react-icons/lib/fa/plus';
 import FaMinus from 'react-icons/lib/fa/minus';
 
 const CommentWrapper = styled.div`
-  display: falexasdf;
+  display: flex;
   padding: 15px;
 `;
 
@@ -65,7 +65,7 @@ class Comment extends Component {
     super(props);
     this.state = {
       vote : 0
-    }
+    };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -144,5 +144,5 @@ class Comment extends Component {
     );
   }
 }
-
+  
 export default Comment;
