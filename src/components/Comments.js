@@ -15,7 +15,7 @@ const CommentsContainer = styled.div`
 
 class Comments extends Component {
   renderComments(root, subClass = false) {
-    const user = this.props.users.find((u) => u.id == root.user);
+    const user = this.props.users.find((u) => u.id === root.user);
     const timeSince = moment(root.createdAt).fromNow();
     if(root.comments) {
       return (

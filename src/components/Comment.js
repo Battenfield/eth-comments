@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import FaBeer from 'react-icons/lib/fa/beer';
 import FaArrowCircleOUp from 'react-icons/lib/fa/arrow-circle-o-up';
 import FaArrowCircleODown from 'react-icons/lib/fa/arrow-circle-o-down';
 
@@ -78,7 +77,6 @@ class Comment extends Component {
   }
 
   renderContent() {
-    //TODO: setup id/user name mapping to data source maybe in the level above and pass that down
     const { points, timeSince, text, username } = this.props;
     return (
       <CommentContent>

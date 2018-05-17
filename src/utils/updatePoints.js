@@ -1,6 +1,6 @@
 const updatePoints = (data, id, value) => {
   data.forEach((comment) => {
-    if (comment.id == id) {
+    if (comment.id === id) {
       comment.points = comment.points + value;
       return;
     } else {

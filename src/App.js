@@ -27,7 +27,6 @@ class App extends Component {
       USERS: USERS
     }
   }
-  //upvote methods that update state in root level
   //TODO: only once per user?
   onUpvote(id) {
     const updatedIncrement = this.state.DATA;
