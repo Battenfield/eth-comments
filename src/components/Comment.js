@@ -7,6 +7,8 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import FaAngleDoubleUp from 'react-icons/lib/fa/angle-double-up';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleDoubleDown from 'react-icons/lib/fa/angle-double-down';
+import FaPlus from 'react-icons/lib/fa/plus';
+import FaMinus from 'react-icons/lib/fa/minus';
 
 
 
@@ -78,21 +80,13 @@ class Comment extends Component {
 
   upvote(id) {
     if(this.state.vote === 0 || 'undefined') {
-      this.setState({ vote: 1 }, () => {
-        this.props.onUpvote(id)
-      });
-    } else {
-      return;
+      this.setState({ vote: 1 }, this.props.onUpvote(id));
     }
   }
 
   downvote(id) {
     if(this.state.vote === 0 || 'undefined') {
-      this.setState({ vote: -1 }, () => {
-        this.props.onDownvote(id);
-      })
-    } else {
-      return;
+      this.setState({ vote: -1 }, this.props.onDownvote(id));
     }
   }
 
@@ -105,14 +99,14 @@ class Comment extends Component {
   }
 
   renderButtons() {
+    const vote = this.state.vote;
     return (
       <VoteButtons>
         <UpVote>
-          { this.state.vote >= 0 && this.renderUpButtons()}
+        { vote >= 0 ? this.renderUpButtons() : <FaMinus size={10} />}
         </UpVote>
         <DownVote>
-          {console.log(this.state.vote)}
-          { this.state.vote <= 0 && this.renderDownButtons() }
+          { vote <= 0 ? this.renderDownButtons() : <FaPlus size={10} /> }
         </DownVote>
       </VoteButtons>
     );
@@ -120,7 +114,7 @@ class Comment extends Component {
 
   renderUpButtons() {
     return (
-      this.state.vote > 0 ? 
+      this.state.vote > 0 ?
       <FaAngleDoubleUp size={25} onClick={() => this.clearUpvote(this.props.id)}/> :
       <FaAngleUp size={25} onClick={() => this.upvote(this.props.id)}/>
     );
@@ -149,7 +143,6 @@ class Comment extends Component {
   }
 
   render() {
-    console.log('rerender', this.props.id)
     return (
       <CommentWrapper>
         { this.renderButtons() }
