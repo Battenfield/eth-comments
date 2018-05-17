@@ -17,6 +17,8 @@ class Comments extends Component {
   renderComments(root, subClass = false) {
     const user = this.props.users.find((u) => u.id === root.user);
     const timeSince = moment(root.createdAt).fromNow();
+
+    //renders recursive components based on the depth of sub-comments
     if(root.comments) {
       return (
         <CommentsContainer subClass={subClass} key={root.id}>

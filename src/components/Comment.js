@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import FaArrowCircleOUp from 'react-icons/lib/fa/arrow-circle-o-up';
-// import FaArrowCircleODown from 'react-icons/lib/fa/arrow-circle-o-down';
-
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import FaAngleDoubleUp from 'react-icons/lib/fa/angle-double-up';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
@@ -10,28 +7,29 @@ import FaAngleDoubleDown from 'react-icons/lib/fa/angle-double-down';
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaMinus from 'react-icons/lib/fa/minus';
 
-
-
 const CommentWrapper = styled.div`
   display: flex;
   padding: 15px;
 `;
 
 const VoteButtons = styled.div`
+  background: WhiteSmoke;
 `;
 
 const CommentContent = styled.div`
   position: relative;
   text-align: left;
+  background: Snow;
+  padding-right: 20px;
+  border-radius: 5px;
 `;
 
-
 const UpVote = styled.div`
-
+  padding: 1px;
 `;
 
 const DownVote = styled.div`
-
+  padding: 1px;
 `;
 
 const Header = styled.div`
@@ -68,54 +66,34 @@ class Comment extends Component {
     this.state = {
       vote : 0
     }
-
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    //only rerenders if comments points change
     if (this.props.points !== nextProps.points) {
       return true;
     }
     return false;
   }
 
+  //handles only one upvote per user
   upvote(id) {
     if(this.state.vote === 0 || 'undefined') {
       this.setState({ vote: 1 }, this.props.onUpvote(id));
     }
   }
 
+  //handles only one downvote per user
   downvote(id) {
     if(this.state.vote === 0 || 'undefined') {
       this.setState({ vote: -1 }, this.props.onDownvote(id));
     }
   }
 
-  clearUpvote(id) {
-    this.setState({ vote: 0 }, this.props.onDownvote(id));
-  }
-
-  clearDownvote(id) {
-    this.setState({ vote: 0 }, this.props.onUpvote(id));
-  }
-
-  renderButtons() {
-    const vote = this.state.vote;
-    return (
-      <VoteButtons>
-        <UpVote>
-        { vote >= 0 ? this.renderUpButtons() : <FaMinus size={10} />}
-        </UpVote>
-        <DownVote>
-          { vote <= 0 ? this.renderDownButtons() : <FaPlus size={10} /> }
-        </DownVote>
-      </VoteButtons>
-    );
-  }
-
   renderUpButtons() {
     return (
       this.state.vote > 0 ?
-      <FaAngleDoubleUp size={25} onClick={() => this.clearUpvote(this.props.id)}/> :
+      <FaAngleDoubleUp size={25} onClick={() => this.setState({ vote: 0 }, this.props.onDownvote(this.props.id))}/> :
       <FaAngleUp size={25} onClick={() => this.upvote(this.props.id)}/>
     );
   }
@@ -123,8 +101,23 @@ class Comment extends Component {
   renderDownButtons() {
     return (
       this.state.vote < 0 ?
-        <FaAngleDoubleDown size={25} onClick={() => this.clearDownvote(this.props.id)}/> :
+        <FaAngleDoubleDown size={25} onClick={() => this.setState({ vote: 0 }, this.props.onUpvote(this.props.id))}/> :
         <FaAngleDown size={25} onClick={() => this.downvote(this.props.id)}/>
+    );
+  }
+
+  // renders vote buttons or status after vote + or -
+  renderButtons() {
+    const vote = this.state.vote;
+    return (
+      <VoteButtons>
+        <UpVote>
+          { vote >= 0 ? this.renderUpButtons() : <FaMinus size={10} />}
+        </UpVote>
+        <DownVote>
+          { vote <= 0 ? this.renderDownButtons() : <FaPlus size={10} /> }
+        </DownVote>
+      </VoteButtons>
     );
   }
 
