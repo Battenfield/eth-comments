@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
+const CommentContent = styled.div`
+  padding: 10px;
+  position:relative;
+`;
 class Comment extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -23,14 +28,14 @@ class Comment extends Component {
     //TODO: setup id/user name mapping to data source maybe in the level above and pass that down
     const { points, createdAt, text, user } = this.props;
     return (
-      <div>
+      <CommentContent>
         <div style={{ display: "inline" }}>
           <div>username: {user}</div>
           <div>points: {points}</div>
           <div>time: {createdAt}</div>
         </div>
           <div>{text}</div>
-      </div>
+      </CommentContent>
     );
   }
 

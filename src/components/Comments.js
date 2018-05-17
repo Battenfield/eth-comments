@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// import styled from 'styled-components';
 import Comment from './Comment';
-
 
 class Comments extends Component {
 
@@ -33,7 +33,7 @@ Comments.propTypes = {
   DATA: PropTypes.array,
   USERS: PropTypes.array,
   onUpvote: PropTypes.func,
-  onDownvote: PropTypes.func,
+  onDownvote: PropTypes.func
 };
   
 export default Comments;

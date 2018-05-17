@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
-import './App.css';
+import styled from 'styled-components';
 import Comments from './components/Comments';
 import updatePoints from './utils/updatePoints';
 import DATA from './sample_data/DATA';
 import USERS from './sample_data/USERS';
+
+const RootContainer = styled.div`
+  padding: 10px;
+  text-align: center;
+`;
+
+const RootHeader = styled.div`
+  background-color: #222;
+  height: 15px;
+  padding: 20px;
+  color: white;
+`;
 
 class App extends Component {
   constructor(props){
@@ -31,12 +43,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          React Comments
-        </header>
+      <RootContainer className="App">
+        <RootHeader className="App-header">
+          React Root
+        </RootHeader>
         <Comments data={this.state.DATA} users={this.state.USERS} onUpvote={this.onUpvote} onDownvote={this.onDownvote} />
-      </div>
+      </RootContainer>
     );
   }
 }
