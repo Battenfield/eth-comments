@@ -4,8 +4,6 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import FaAngleDoubleUp from 'react-icons/lib/fa/angle-double-up';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleDoubleDown from 'react-icons/lib/fa/angle-double-down';
-import FaPlus from 'react-icons/lib/fa/plus';
-import FaMinus from 'react-icons/lib/fa/minus';
 
 const CommentWrapper = styled.div`
   display: flex;
