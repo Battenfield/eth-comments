@@ -26,10 +26,16 @@ const CommentContent = styled.div`
 
 const UpVote = styled.div`
   padding: 1px;
+  ${({ onlyUpvote }) => onlyUpvote && `
+    margin-bottom: 25px;
+  `} 
 `;
 
 const DownVote = styled.div`
   padding: 1px;
+  ${({ onlyDownvote }) => onlyDownvote && `
+    margin-top: 25px;
+  `} 
 `;
 
 const Header = styled.div`
@@ -106,16 +112,18 @@ class Comment extends Component {
     );
   }
 
-  // renders vote buttons or status after vote + or -
+  // renders vote buttons and removes if opposite if already voted
   renderButtons() {
     const vote = this.state.vote;
+    const onlyUpvote = vote > 0;
+    const onlyDownvote = vote < 0;
     return (
       <VoteButtons>
-        <UpVote>
-          { vote >= 0 ? this.renderUpButtons() : <FaMinus size={10} onClick={() => this.setState({ vote: 0 }, this.props.onUpvote(this.props.id))} />}
+        <UpVote onlyUpvote={onlyUpvote}>
+          { vote >= 0 && this.renderUpButtons() }
         </UpVote>
-        <DownVote>
-          { vote <= 0 ? this.renderDownButtons() : <FaPlus size={10} onClick={() => this.setState({ vote: 0 }, this.props.onDownvote(this.props.id))} /> }
+        <DownVote onlyDownvote={onlyDownvote}>
+          { vote <= 0 && this.renderDownButtons() }
         </DownVote>
       </VoteButtons>
     );
