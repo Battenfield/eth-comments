@@ -112,10 +112,10 @@ class Comment extends Component {
     return (
       <VoteButtons>
         <UpVote>
-          { vote >= 0 ? this.renderUpButtons() : <FaMinus size={10} />}
+          { vote >= 0 ? this.renderUpButtons() : <FaMinus size={10} onClick={() => this.setState({ vote: 0 }, this.props.onUpvote(this.props.id))} />}
         </UpVote>
         <DownVote>
-          { vote <= 0 ? this.renderDownButtons() : <FaPlus size={10} /> }
+          { vote <= 0 ? this.renderDownButtons() : <FaPlus size={10} onClick={() => this.setState({ vote: 0 }, this.props.onDownvote(this.props.id))} /> }
         </DownVote>
       </VoteButtons>
     );
