@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Comments from './components/Comments';
+import CommentsContainer from './components/CommentsContainer';
 import updatePoints from './utils/updatePoints';
 import DATA from './demo_data/DATA';
 import USERS from './demo_data/USERS';
@@ -12,10 +12,20 @@ const RootContainer = styled.div`
 
 const RootHeader = styled.div`
   background-color: #222;
-  height: 15px;
-  padding: 20px;
+  height: 5px;
+  padding: 10px;
+  font-size: 20px
   color: white;
 `;
+
+const RootInfo = styled.div`
+  background-color: #222;
+  height: 10px;
+  padding: 20px;
+  font-size: 15px
+  color: white;
+`;
+
 
 class App extends Component {
   constructor(props){
@@ -27,7 +37,7 @@ class App extends Component {
       USERS: USERS
     }
   }
-  //TODO: only once per user?
+
   onUpvote(id) {
     const updatedIncrement = this.state.DATA;
     updatePoints(updatedIncrement, id, 1);
@@ -44,9 +54,12 @@ class App extends Component {
     return (
       <RootContainer>
         <RootHeader>
-          React Comments
+          ETH Comments
         </RootHeader>
-        <Comments data={this.state.DATA} users={this.state.USERS} onUpvote={this.onUpvote} onDownvote={this.onDownvote} />
+        <RootInfo> 
+          (Log into MetaMask to tip commenter)
+        </RootInfo>
+        <CommentsContainer data={this.state.DATA} users={this.state.USERS} onUpvote={this.onUpvote} onDownvote={this.onDownvote} />
       </RootContainer>
     );
   }

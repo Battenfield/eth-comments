@@ -7,31 +7,36 @@ import moment from 'moment';
 
 const CommentsContainer = styled.div`
   ${({ subClass }) => subClass && `
-    margin-left: 65px;
+    margin-left: 28px;
     border-left: .5px solid grey;
+    padding: 0 20px
     position: relative;
-  `} 
+  `}
+  user-select:none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 `;
 
 class Comments extends Component {
+
   renderComments(root, subClass = false) {
     const user = this.props.users.find((u) => u.id === root.user);
+    const userAddress = user.address || null;
     const timeSince = moment(root.createdAt).fromNow();
 
     //renders recursive components based on the depth of sub-comments
-    if(root.comments) {
-      return (
-        <CommentsContainer subClass={subClass} key={root.id}>
-          <Comment
-            username={user.username}
-            onUpvote={this.props.onUpvote} 
-            onDownvote={this.props.onDownvote}
-            timeSince={timeSince}            
-            {...root}/>
-          {root.comments.map((c) => this.renderComments(c, true))}
-        </CommentsContainer>
-      );
-    }
+    return (
+      <CommentsContainer subClass={subClass} key={root.id}>
+        <Comment
+          username={user.username}
+          userAddress={userAddress}
+          onUpvote={this.props.onUpvote} 
+          onDownvote={this.props.onDownvote}
+          timeSince={timeSince}            
+          {...root}/>
+        {root.comments.map((c) => this.renderComments(c, true))}
+      </CommentsContainer>
+    );
   }
 
   render() {
