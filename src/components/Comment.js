@@ -80,33 +80,25 @@ class Comment extends Component {
     return false;
   }
 
-  //handles only one upvote per user
-  upvote(id) {
+  vote(id, value, handler) {
     if(this.state.vote === 0 || 'undefined') {
-      this.setState({ vote: 1 }, this.props.onUpvote(id));
-    }
-  }
-
-  //handles only one downvote per user
-  downvote(id) {
-    if(this.state.vote === 0 || 'undefined') {
-      this.setState({ vote: -1 }, this.props.onDownvote(id));
+      this.setState({ vote: value }, handler(id));
     }
   }
 
   renderUpButtons() {
     return (
       this.state.vote > 0 ?
-      <FaAngleDoubleUp size={25} onClick={() => this.setState({ vote: 0 }, this.props.onDownvote(this.props.id))}/> :
-      <FaAngleUp size={25} onClick={() => this.upvote(this.props.id)}/>
+      <FaAngleDoubleUp size={25} onClick={() => this.vote(this.props.id, 0, this.props.onDownvote)}/> :
+      <FaAngleUp size={25} onClick={() => this.vote(this.props.id, 1, this.props.onUpvote)}/>
     );
   }
 
   renderDownButtons() {
     return (
       this.state.vote < 0 ?
-        <FaAngleDoubleDown size={25} onClick={() => this.setState({ vote: 0 }, this.props.onUpvote(this.props.id))}/> :
-        <FaAngleDown size={25} onClick={() => this.downvote(this.props.id)}/>
+        <FaAngleDoubleDown size={25} onClick={() => this.vote(this.props.id, 0, this.props.onUpvote)}/> :
+        <FaAngleDown size={25} onClick={() => this.vote(this.props.id, -1, this.props.onDownvote)}/>
     );
   }
 
