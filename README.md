@@ -1,21 +1,22 @@
 # ETH-Comments
-A recursive Reddit-like comment container using React. With Upvote/Downvote feature, allowing the user to only vote once per comment.
 
+A recursive Reddit-like comment container using React. With Upvote/Downvote feature, allowing the user to only vote once per comment.
 
 ### Additional Feature: Give ETH 
 Allows user to tip the commenter Comment Gold(.001 ETH).
 An Ethereum icon will render next to the commenter username if the user is logged into MetaMask & the commenter has an Ethereum address in the USERS data set. The user can click this icon to open MetaMask to generate and send a tx to the commenters address. Also works on mobile wallet providers, such as Cipher Browser for iPhone.
 
+### DEMO: eth-comments.now.sh
 ![ETH-Comments demo](https://i.imgur.com/tpG9pVx.gif)
 
 Data and Users in demo are currently being passed in from `src/demo_data`.
 
-## To Start Run:
+## Run Project:
 
 In the project directory, run:
 ### `npm / yarn install`
 
-Start Project:
+Start:
 ### `npm / yarn start`
 
 Runs the app in the development mode.<br>
