@@ -1,30 +1,25 @@
-# React-Comments
-A recursive Reddit-like comment container using React. With Upvote/Downvote feature, allowing the user to only vote once per comment. 
+# ETH-Comments
+A recursive Reddit-like comment container using React. With Upvote/Downvote feature, allowing the user to only vote once per comment.
 
-[React-Comments demo](https://imgur.com/a/3pF9sb7)
+
+### Additional Feature: Give ETH 
+Allows user to tip the commenter Comment Gold(.001 ETH).
+An Ethereum icon will render next to the commenter username if the user is logged into MetaMask & the commenter has an Ethereum address in the USERS data set. The user can click this icon to open MetaMask to generate and send a tx to the commenters address. 
+
+[ETH-Comments demo](https://imgur.com/a/tpG9pVx)
 
 Data and Users in demo are currently being passed in from `src/demo_data`.
 
-## Available Scripts
+## To Start Run:
 
-In the project directory, you can run:
-### `npm install`
-### `yarn install`
+In the project directory, run:
+### `npm / yarn install`
 
-Installs dependencies
-
-### `npm start`
-### `yarn install`
+Start Project:
+### `npm / yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-### `npm test`
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br>
-
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app), [styled-components](https://www.styled-components.com/), and [react-icons](https://gorangajic.github.io/react-icons/).
+This project was bootstrapped with [Web3](https://github.com/ethereum/web3.js/), [Create React App](https://github.com/facebookincubator/create-react-app), [styled-components](https://www.styled-components.com/), and [react-icons](https://gorangajic.github.io/react-icons/).
