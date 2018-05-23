@@ -6,7 +6,7 @@ A recursive Reddit-like comment container using React. With Upvote/Downvote feat
 Allows user to tip the commenter Comment Gold(.001 ETH).
 An Ethereum icon will render next to the commenter username if the user is logged into MetaMask & the commenter has an Ethereum address in the USERS data set. The user can click this icon to open MetaMask to generate and send a tx to the commenters address. 
 
-[ETH-Comments demo](https://imgur.com/a/tpG9pVx)
+[ETH-Comments demo](https://imgur.com/tpG9pVx)
 
 Data and Users in demo are currently being passed in from `src/demo_data`.
 
